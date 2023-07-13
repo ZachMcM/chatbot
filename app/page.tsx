@@ -42,7 +42,7 @@ export default function Home() {
     } else {
       document.documentElement.classList.remove("dark")
     }
-  }), [value]
+  }, [value])
   
   return (
     <main className="flex min-h-screen flex-col space-y-24 items-center p-10 md:py-24 lg:px-64">
