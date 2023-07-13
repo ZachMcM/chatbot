@@ -43,7 +43,7 @@ export default function Home() {
         block: "end"
       })
     }
-  }, [messages.length]) 
+  }, [messages.length, messages[messages.length - 1]?.content.length]) 
   
   return (
     <main className="flex min-h-screen flex-col space-y-24 items-center p-10 md:py-24 lg:px-64">
@@ -67,7 +67,7 @@ export default function Home() {
                   <Card key={m.id}>
                     <CardContent>
                       <div className='flex space-x-4 items-center mt-4'>
-                        { m.role == "user" ? <User/> : <Bot/>}
+                        <div className="shrink-0">{ m.role == "user" ? <User/> : <Bot/>}</div>
                         <div className="flex flex-col">
                           <p className='text-sm text-muted-foreground capitalize'>{m.role}</p>
                           <p className='text-primary'>{m.content}</p>
