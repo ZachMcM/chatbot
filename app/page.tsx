@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Bot, Github, MoonIcon, Sun, SunIcon, User, User2 } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useMediaQuery } from "react-responsive"
 
 export default function Home() {
   const { messages, input, handleInputChange, handleSubmit } = useChat()
@@ -15,17 +14,27 @@ export default function Home() {
 
   const [darkMode, setDarkMode] = useState<boolean>(false)
 
-  const systemPrefersDark = useMediaQuery(    
-    {
-      query: "(prefers-color-scheme: dark)",
-    },
-    undefined,
-    (isSystemDark) => setDarkMode(isSystemDark)
-  )
+  function handleThemeChange() {
+    if (darkMode) {
+      document.documentElement.classList.remove("dark")
+      localStorage.theme = "light"
+      setDarkMode(false)
+    } else {
+      document.documentElement.classList.add("dark")
+      localStorage.theme = "dark"
+      setDarkMode(true)
+    }
+  }
 
-  const value = useMemo(() => (
-    darkMode == undefined ? !!systemPrefersDark : darkMode
-  ), [darkMode, systemPrefersDark])
+  useEffect(() => {
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+      setDarkMode(true)
+    } else {
+      document.documentElement.classList.remove('dark')
+      setDarkMode(false)
+    }
+  }, [])
 
   useEffect(() => {
     if (messages.length) {
@@ -35,21 +44,13 @@ export default function Home() {
       })
     }
   }, [messages.length]) 
-
-  useEffect(() => {
-    if (value) {
-      document.documentElement.classList.add("dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-    }
-  }, [value])
   
   return (
     <main className="flex min-h-screen flex-col space-y-24 items-center p-10 md:py-24 lg:px-64">
       <Button 
         variant="ghost" 
         className="absolute top-0 right-0 m-6"
-        onClick={() => setDarkMode(!darkMode)}
+        onClick={handleThemeChange}
       >
         {darkMode ? <SunIcon/> : <MoonIcon/>}
       </Button>
