@@ -46,7 +46,7 @@ export default function Home() {
   }, [messages.length, messages[messages.length - 1]?.content.length]) 
   
   return (
-    <main className="flex min-h-screen flex-col space-y-24 items-center p-10 md:py-24 lg:px-64 xl:px-96 2xl:mx-96">
+    <main className="flex min-h-screen flex-col space-y-24 items-center p-2 md:py-24 lg:px-64 xl:px-96 2xl:mx-96">
       <Button 
         variant="ghost" 
         className="absolute top-0 right-0 m-6"
@@ -59,7 +59,7 @@ export default function Home() {
         <p className='text-muted-foreground text-lg font-medium'>A chatbot built with NextJS, OpenAIApi and Vercel's AI SDK</p>
         <a href="https://github.com/ZachMcM/chatbot"><Button variant='ghost' className='w-fit self-center'><Github className='mr-2 h-4 w-4'/>GitHub</Button></a>
       </div>
-      <div className='p-4 overflow-y-auto max-h-[36rem] w-full'>
+      <div className='p-2 overflow-y-auto max-h-72 md:max-h-[36rem] w-full'>
         <div className='flex flex-col space-y-4 w-full'>
             {
               messages.map((m: Message, i: number) => {
@@ -81,13 +81,13 @@ export default function Home() {
         </div>
         <div ref={lastMessage}></div>
       </div>
-      <div className='absolute bottom-0 w-full p-10 md:py-24 lg:px-64 xl:px-96'>
+      <div className='absolute bottom-0 w-full p-2 md:py-24 lg:px-64 xl:px-96'>
         <form 
           onSubmit={(e) => {
             handleSubmit(e)
             lastMessage.current?.scrollIntoView
           }} 
-          className='grid gap-2 px-4 2xl:mx-96'
+          className='grid gap-2 px-2 2xl:mx-96'
         >
           <Textarea 
             placeholder="Type your message here." 
