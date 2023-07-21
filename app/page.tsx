@@ -49,6 +49,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col space-y-24 items-center p-2 md:py-24 lg:px-64 xl:px-96 2xl:mx-96">
       <Button 
         variant="ghost" 
+        size="icon"
         className="absolute top-0 right-0 m-6"
         onClick={handleThemeChange}
       >
